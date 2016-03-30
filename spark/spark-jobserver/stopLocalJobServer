@@ -1,0 +1,6 @@
+
+bash $SPARK_HOME/sbin/stop-slaves.sh
+bash $SPARK_HOME/sbin/stop-master.sh
+bash $SPARK_JOBSERVER_HOME/bin/server_stop.sh
+
+

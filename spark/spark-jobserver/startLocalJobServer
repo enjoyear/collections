@@ -1,0 +1,5 @@
+
+bash $SPARK_HOME/sbin/start-master.sh
+bash $SPARK_HOME/sbin/start-slaves.sh spark://127.0.0.1:7077
+bash $SPARK_JOBSERVER_HOME/bin/server_start.sh
+
