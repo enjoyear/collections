@@ -43,3 +43,7 @@ Option 2: Use --driver-class-path and spark.executor.extraClassPath to add jars 
 ##How to start and stop
 Call startLocalJobserver to start the spark job server locally
 Call stopLocalJobserver to stop the spark job server locally
+
+##Check Environment Variables
+curl -d "" ${JOB_SERVER}'/contexts/'${SQL_CONTEXT_NAME}'?context-factory=spark.jobserver.context.SQLContextFactory&num-cpu-cores=4&memory-per-node=8g&spark.executor.instances=2&spark.default.parallelism=4&passthrough.spark.ui.port=4040'
+http://localhost:4040/environment/
