@@ -22,12 +22,17 @@ To enable debugging the client side code, add this line to the JAVA_OPS in serve
 
 ##Work with AWS S3 and MySQL
 ###Add AWS and MySQL jars to driver and executor class path in the cmd of server_start.sh.
+Option 1: Use --jars to provide a comma-separated list of local jars to both driver and executor.
+```
+  --jars spark.executor.extraClassPath=/usr/local/hadoop-2.7.2/share/hadoop/tools/lib/mysql-connector-java-5.1.38.jar,/usr/local/hadoop-2.7.2/share/hadoop/tools/lib/hadoop-aws-2.7.2.jar,/usr/local/hadoop-2.7.2/share/hadoop/tools/lib/aws-java-sdk-1.7.4.jar
+```
+Option 2: Use --driver-class-path and spark.executor.extraClassPath to add jars individually, but use colon to separate.
+```
+  --conf "spark.executor.extraClassPath=/usr/local/hadoop-2.7.2/share/hadoop/tools/lib/mysql-connector-java-5.1.38.jar:/usr/local/hadoop-2.7.2/share/hadoop/tools/lib/hadoop-aws-2.7.2.jar:/usr/local/hadoop-2.7.2/share/hadoop/tools/lib/aws-java-sdk-1.7.4.jar"
+  --driver-class-path "/usr/local/hadoop-2.7.2/share/hadoop/tools/lib/mysql-connector-java-5.1.38.jar:/usr/local/hadoop-2.7.2/share/hadoop/tools/lib/hadoop-aws-2.7.2.jar:/usr/local/hadoop-2.7.2/share/hadoop/tools/lib/aws-java-sdk-1.7.4.jar"
 
 ```
---conf "spark.executor.extraClassPath=/usr/local/hadoop-2.7.2/share/hadoop/tools/lib/mysql-connector-java-5.1.38.jar:/usr/local/hadoop-2.7.2/share/hadoop/tools/lib/hadoop-aws-2.7.2.jar:/usr/local/hadoop-2.7.2/share/hadoop/tools/lib/aws-java-sdk-1.7.4.jar"
---driver-class-path "/usr/local/hadoop-2.7.2/share/hadoop/tools/lib/mysql-connector-java-5.1.38.jar:/usr/local/hadoop-2.7.2/share/hadoop/tools/lib/hadoop-aws-2.7.2.jar:/usr/local/hadoop-2.7.2/share/hadoop/tools/lib/aws-java-sdk-1.7.4.jar"
 
-```
 ###Add access keys to your .bashrc file
 ```bash
     export AWS_ACCESS_KEY_ID=?????
@@ -38,3 +43,7 @@ To enable debugging the client side code, add this line to the JAVA_OPS in serve
 ##How to start and stop
 Call startLocalJobserver to start the spark job server locally
 Call stopLocalJobserver to stop the spark job server locally
+
+##Check Environment Variables
+curl -d "" ${JOB_SERVER}'/contexts/'${SQL_CONTEXT_NAME}'?context-factory=spark.jobserver.context.SQLContextFactory&num-cpu-cores=4&memory-per-node=8g&spark.executor.instances=2&spark.default.parallelism=4&passthrough.spark.ui.port=4040'
+http://localhost:4040/environment/
